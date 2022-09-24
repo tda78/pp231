@@ -8,14 +8,6 @@
 </head>
 <body>
 <table>
-    <caption>Cars</caption>
-    <thead>
-    <tr>
-        <th>model</th>
-        <th>series</th>
-        <th>color</th>
-    </tr>
-    </thead>
     <tbody>
     <div>
         <th:block th:each="user : ${users}">
@@ -24,12 +16,16 @@
                 <td th:text="${user.mail}"></td>
                 <td th:text="${user.pass}"></td>
                 <td th:text="${user.age}"></td>
+                <td><a th:href="@{/users/{id}/edit(id=${user.id})}" th:text="update">update</a></td>
+                <td><a th:href="@{/users/{id}/delete(id=${user.id})}" th:text="delete">delete</a></td>
+
             </tr>
 
         </th:block>
     </div>
-    <a href="/new">new</a>
     </tbody>
 </table>
+<a href="/users/new">new</a>
+
 </body>
 </html>
