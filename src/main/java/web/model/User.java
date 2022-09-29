@@ -1,7 +1,13 @@
 package web.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
     private static int count = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String mail;
     private String password;
@@ -14,12 +20,9 @@ public class User {
         this.age = age;
     }
 
-    public User() {
-        this.id = ++count;
-    }
+    public User() {}
 
     public User(String mail, String pass, byte age) {
-       // this.id = ++count;
         this.mail = mail;
         this.password = pass;
         this.age = age;
