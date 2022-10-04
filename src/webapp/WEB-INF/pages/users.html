@@ -16,8 +16,8 @@
                 <td th:text="${user.mail}"></td>
                 <td th:text="${user.pass}"></td>
                 <td th:text="${user.age}"></td>
-                <td><a th:href="@{/users/{id}/edit(id=${user.id})}" th:text="update">update</a></td>
-                <td><a th:href="@{/users/{id}/delete(id=${user.id})}" th:text="delete">delete</a></td>
+                <td><a th:href="@{/{id}/edit(id=${user.id})}" th:text="update">update</a></td>
+                <td><a th:href="@{/{id}/delete(id=${user.id})}" th:text="delete">delete</a></td>
 
             </tr>
 
@@ -25,7 +25,7 @@
     </div>
     </tbody>
 </table>
-<a href="/users/new">new</a>
+<a href="/new">new</a>
 
 </body>
 </html>

@@ -13,59 +13,46 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private List<User> users = new ArrayList<>();
 
-    EntityManagerFactory emf;
-
-    @Autowired
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+    EntityManager em;
 
     public UserDaoImpl() {
-        users.add(new User(1l, "m", "m", (byte) 12));
-        users.add(new User(2l, "a", "a", (byte) 123));
-        users.add(new User(3l, "q", "q", (byte) 5));
+    }
+    @Autowired
+    public UserDaoImpl(EntityManagerFactory emf) {
+        this.em = emf.createEntityManager();
     }
 
     @Override
     public List<User> getUsers() {
-        EntityManager em = emf.createEntityManager();
         List<User> users = (em.createQuery("select u from User u").getResultList());
-        em.close();
         return users;
     }
 
     @Override
     public User getUserById(long id) {
-        EntityManager entityManager = emf.createEntityManager();
-        User user = entityManager.find(User.class, id);
-        entityManager.close();
+        User user = em.find(User.class, id);
         return (user);
     }
 
     @Override
     public void saveUser(User user) {
-        EntityManager manager = emf.createEntityManager();
-        manager.getTransaction().begin();
-        manager.persist(user);
-        manager.getTransaction().commit();
-        manager.close();
+
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
     }
 
     @Override
     public void updateUser(User user) {
-        EntityManager manager = emf.createEntityManager();
-        manager.getTransaction().begin();
-        manager.merge(user);
-        manager.getTransaction().commit();
-        manager.close();
+        em.getTransaction().begin();
+        em.merge(user);
+        em.getTransaction().commit();
     }
 
     @Override
     public void deleteUser(long id) {
-        EntityManager manager = emf.createEntityManager();
-        manager.getTransaction().begin();
-        manager.remove(manager.find(User.class, id));
-        manager.getTransaction().commit();
-        manager.close();
+        em.getTransaction().begin();
+        em.remove(em.find(User.class, id));
+        em.getTransaction().commit();
     }
 }

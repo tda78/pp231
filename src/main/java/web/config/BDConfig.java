@@ -54,7 +54,6 @@ public class BDConfig {
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-//        transactionManager.setEntityManagerFactory(entityManagerFactory());
         return transactionManager;
     }
 
@@ -70,36 +69,4 @@ public class BDConfig {
 
         return properties;
     }
-
- public static void main(String[] args) {
-     DataSource dataSource = new BDConfig().dataSource();
-     System.out.println(dataSource);
-     try {
-         Connection connection = (dataSource.getConnection());
-
-         List<User> users = new ArrayList<>();
-         try {
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from users");
-
-             while (resultSet.next()){
-                 User user = new User();
-                 user.setId(resultSet.getLong("id"));
-                 user.setMail(resultSet.getString("name"));
-                 user.setPass(resultSet.getString("lastName"));
-                 user.setAge(resultSet.getByte("age"));
-                 users.add(user);
-             }
-         } catch (SQLException e) {
-             System.out.println(e.getMessage());
-             throw new RuntimeException(e);
-         }
-         for (User user:users){
-             System.out.println(user.getMail() + " "+ user.getPass());
-         }
-
-     } catch (SQLException e) {
-         throw new RuntimeException(e);
-     }
- }
 }

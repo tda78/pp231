@@ -6,7 +6,7 @@
   <title>Title</title>
 </head>
 <body>
-<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+<form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
   <h1>delete user</h1>
   <label for="mail">e-mail</label>
   <input type="text" th:field="*{user.mail}" id="mail">
