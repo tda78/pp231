@@ -11,12 +11,12 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private List<User> users = new ArrayList<>();
 
     EntityManager em;
 
     public UserDaoImpl() {
     }
+
     @Autowired
     public UserDaoImpl(EntityManagerFactory emf) {
         this.em = emf.createEntityManager();
@@ -36,7 +36,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-
         em.getTransaction().begin();
         em.persist(user);
         em.getTransaction().commit();
